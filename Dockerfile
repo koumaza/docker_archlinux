@@ -8,12 +8,12 @@ ENV aur_packages='base base-devel yay-git pkgfile \
     bash zsh fish tmux neofetch tmate \
     w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng git p7zip zstd aria2 wget \
     ninja-git cmake-git \
-    openssl zlib autogen podman podman-compose-git docker-git docker-compose-git \
+    openssl zlib autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
     kotlin-native-bin \
     dotnet-sdk-preview \
     github-cli-git fzf-git'
 
-ENV aur_second_packages='llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
+ENV aur_second_packages='docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
 
 # User
 RUN useradd ww -md /ww \
