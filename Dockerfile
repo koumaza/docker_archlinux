@@ -15,6 +15,8 @@ ENV aur_packages='base base-devel yay-git pkgfile \
 
 ENV aur_second_packages='docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
 
+ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitignore oh-my-fish/plugin-rvm'
+
 # User
 RUN useradd ww -md /ww \
 &&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers \
@@ -36,13 +38,8 @@ RUN useradd ww -md /ww \
 # Fish
 &&  su ww -c "cd ~/ && \
             curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
-            fish -c fisher add \
-                jethrokuan/fzf \
-                edc/bass \
-                jethrokuan/z \
-                0rax/fish-bd \
-                sijad/gitignore \
-                oh-my-fish/plugin-rvm" && \
+            fish -c "fisher add $(echo ${aur_second_packages}|tr ' ' ' ')"
+            "&& \
             cd \
 # Python
 ## Pyenv
