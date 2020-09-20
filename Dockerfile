@@ -6,7 +6,7 @@ RUN   echo -e 'Build date: '$(date) > /etc/image_version
 
 ENV aur_packages='base base-devel yay-git pkgfile \
     bash bash-completion-git zsh-git fish-git tmux-git neofetch-git tmate \
-    w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng p7zip p7zip-zstd-codec zstd aria2-git wget \
+    w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng p7zip p7zip-zstd-codec zstd zip unzip aria2-git wget \
     ninja-git cmake-git \
     autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
     kotlin-native-bin \
