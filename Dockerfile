@@ -6,14 +6,15 @@ RUN   echo -e 'Build date: '$(date) > /etc/image_version
 
 ENV aur_packages='base base-devel yay-git pkgfile \
     bash bash-completion-git zsh-git fish-git tmux-git neofetch-git tmate \
-    w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng git-git p7zip p7zip-zstd-codec zstd aria2-git wget-git curl-git \
+    w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng p7zip p7zip-zstd-codec zstd aria2-git wget-git \
     ninja-git cmake-git \
-    openssl-git openssh-git zlib-git autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
+    autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
     kotlin-native-bin \
     dotnet-sdk-preview \
     github-cli-git fzf-git keybase-git rar ttf-ms-fonts'
 
-ENV aur_second_packages='docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git android-platform'
+### Will Override to Conflicts Packages
+ENV aur_second_packages=' git-git curl-git openssl-git openssh-git zlib-git docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git android-platform'
 
 ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitignore oh-my-fish/plugin-rvm'
 
