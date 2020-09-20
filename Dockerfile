@@ -34,7 +34,8 @@ RUN useradd ww -md /ww \
             yes|yay -Scccc" && \
             cd \
 # Fish
-&&  su ww -c "curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
+&&  su ww -c "cd ~/ && \
+            curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
             fish -c fisher add \
                 jethrokuan/fzf \
                 edc/bass \
