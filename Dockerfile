@@ -38,8 +38,7 @@ RUN useradd ww -md /ww \
 # Fish
 &&  su ww -c "cd ~/ && \
             curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
-            fish -c "fisher add $(echo ${aur_second_packages}|tr ' ' ' ')"
-            "&& \
+            fish -c "fisher add $(echo ${aur_second_packages}|tr ' ' ' ')" " && \
             cd \
 # Python
 ## Pyenv
