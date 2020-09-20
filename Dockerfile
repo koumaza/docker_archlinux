@@ -5,15 +5,15 @@ SHELL ["bash","-c"]
 RUN   echo -e 'Build date: '$(date) > /etc/image_version
 
 ENV aur_packages='base base-devel yay-git pkgfile \
-    bash zsh fish tmux neofetch tmate \
-    w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng git p7zip zstd aria2 wget \
+    bash bash-completion-git zsh-git fish-git tmux-git neofetch-git tmate \
+    w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng git-git p7zip p7zip-zstd-codec zstd aria2-git wget-git curl-git \
     ninja-git cmake-git \
-    openssl zlib autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
+    openssl-git openssh-git zlib-git autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
     kotlin-native-bin \
     dotnet-sdk-preview \
-    github-cli-git fzf-git'
+    github-cli-git fzf-git keybase-git rar ttf-ms-fonts'
 
-ENV aur_second_packages='docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
+ENV aur_second_packages='docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git android-platform'
 
 ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitignore oh-my-fish/plugin-rvm'
 
@@ -38,7 +38,7 @@ RUN useradd ww -md /ww \
 # Fish
 &&  su ww -c "cd ~/ && \
             curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
-            fish -c "fisher add $(echo ${aur_second_packages}|tr ' ' ' ')" " && \
+            fish -c "fisher add $(echo ${fisher_plugin}|tr ' ' ' ')" " && \
             cd \
 # Python
 ## Pyenv
