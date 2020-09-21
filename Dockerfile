@@ -156,7 +156,8 @@ RUN useradd ww -md /ww \
             koumaza_temp_dir=$(mktemp -d) && cd $koumaza_temp_dir && \
             git clone https://github.com/koumaza/dot --depth=1 dot && \
             cd dot/codespace/archlinux && \
-            cp -rf $(ls -A|tr '\n' ' ') ~/" && \
+            cp -rf $(ls -A|tr '\n' ' ') ~/ && \
+            rm -rf $koumaza_temp_dir" && \
             cd \
 
 USER  ww
