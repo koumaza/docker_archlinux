@@ -8,13 +8,13 @@ ENV aur_packages='base base-devel yay-git pkgfile \
     bash bash-completion-git zsh-git fish-git tmux-git neofetch-git tmate \
     w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng p7zip p7zip-zstd-codec zstd zip unzip aria2-git wget \
     ninja-git cmake-git \
-    autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
+    openssl autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
     kotlin-native-bin \
     dotnet-sdk-preview \
     github-cli-git fzf-git keybase-git rar ttf-ms-fonts'
 
 ### Will Override to Conflicts Packages
-ENV aur_second_packages='wget-git git-git curl-git openssl-git openssh-git zlib-git docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
+ENV aur_second_packages='wget-git git-git curl-git openssh-git zlib-git docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
 
 ### Don't Choice of Provide Package
 ENV aur_third_packages='android-platform'
