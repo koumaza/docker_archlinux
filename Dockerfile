@@ -14,7 +14,10 @@ ENV aur_packages='base base-devel yay-git pkgfile \
     github-cli-git fzf-git keybase-git rar ttf-ms-fonts'
 
 ### Will Override to Conflicts Packages
-ENV aur_second_packages='wget-git git-git curl-git openssl-git openssh-git zlib-git docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git android-platform'
+ENV aur_second_packages='wget-git git-git curl-git openssl-git openssh-git zlib-git docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
+
+### Don't Choice of Provide Package
+ENV aur_third_packages='android-platform'
 
 ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitignore oh-my-fish/plugin-rvm'
 
@@ -34,6 +37,7 @@ RUN useradd ww -md /ww \
             gpg --keyserver keys.gnupg.net --recv-keys 702353E0F7E48EDB && \
             yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') && \
             yes|yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') && \
+            yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') && \
             yes|yay -Scccc" && \
             cd \
 # Fish
