@@ -9,7 +9,7 @@ ENV aur_packages='base base-devel yay-git pkgfile \
     w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng p7zip p7zip-zstd-codec zstd zip unzip aria2-git wget \
     ninja-git cmake-git pod2man \
     openssl autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
-    kotlin-native-bin \
+    kotlin-native-bin perl-test-harness \
     dotnet-sdk-preview \
     github-cli-git fzf-git keybase-bin rar ttf-ms-fonts'
 
