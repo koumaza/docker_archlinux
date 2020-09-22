@@ -17,7 +17,7 @@ ENV aur_packages='base base-devel yay-git pkgfile \
 ENV aur_second_packages='wget-git curl-git openssh-git zlib-git docker-git docker-compose-git llvm-git gcc-git powershell-git act-git go-git gcc-objc-git'
 
 ### Don't Choice of Provide Package
-ENV aur_third_packages='android-platform git rakudo-git'
+ENV aur_third_packages='android-platform git rakudo'
 
 ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitignore oh-my-fish/plugin-rvm'
 
