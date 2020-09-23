@@ -47,7 +47,7 @@ RUN : Run at User \
 &&  cd ~/ && \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
     git clone https://github.com/momo-lab/xxenv-latest.git ~/.pyenv/plugins/xxenv-latest && \
-    export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && \
+    export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && eval "$(pyenv init -)" && \
     pyenv latest install && pyenv latest global && \
     cd ~/ \
 ## Pipenv
@@ -105,7 +105,7 @@ RUN : Run at User \
 &&  cd ~/ && \
     git clone https://github.com/syndbg/goenv.git ~/.goenv && \
     git clone https://github.com/momo-lab/xxenv-latest.git ~/.goenv/plugins/xxenv-latest && \
-    export GOENV_ROOT="$HOME/.goenv" && export PATH="$GOENV_ROOT/bin:$PATH" && eval "$(goenv init -)" && export PATH="$GOROOT/bin:$PATH" && export PATH="$PATH:$GOPATH/bin" & \
+    export GOPATH="$HOME/go" && export GOENV_ROOT="$HOME/.goenv" && export PATH="$GOENV_ROOT/bin:$PATH" && eval "$(goenv init -)" && export PATH="$GOROOT/bin:$PATH" && export PATH="$PATH:$GOPATH/bin" && \
     goenv latest install && goenv latest global && \
     cd ~/ \
 # Java
