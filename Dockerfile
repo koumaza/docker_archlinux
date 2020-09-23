@@ -23,7 +23,7 @@ ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitig
 
 # User
 RUN useradd ww -md /ww \
-&&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers
+&&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers \
 # Pacman
 &&	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/pacman.conf|sed 's/\r//g' > /etc/pacman.conf \
 &&	pacman -Syyuu --needed --noconfirm base base-devel go git ed \
@@ -41,7 +41,7 @@ RUN useradd ww -md /ww \
             yes|yay -Scccc" && \
             cd
 USER  ww
-RUN echo 'Run at User' \
+RUN : Run at User \
 # Python
 ## Pyenv
 &&  cd ~/ && \
@@ -79,83 +79,83 @@ RUN echo 'Run at User' \
     npm install -g pnpm && \
     cd ~/ \
 ### Yarn
-&&  su ww -c "cd ~/ && \
-            curl -Ls https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import && \
-            yarn_ver=$(curl -sL https://nightly.yarnpkg.com/latest-tar-version) && \
-            aria2c -x16 -s20 -qtrue -oyarn.tar.gz https://nightly.yarnpkg.com/yarn-v${yarn_ver}.tar.gz && \
-            aria2c -x16 -s20 -qtrue -oyarn.tar.gz.asc https://nightly.yarnpkg.com/latest.tar.gz.asc && \
-            gpg --verify yarn.tar.gz.asc||! echo '[CRIICAL] GPG Verify is Not Valid' ;\
-            if [ ! $? = 0 ];then exit 1; fi && \
-            rm yarn.tar.gz.asc && \
-            tar -axvf yarn.tar.gz && \
-            mv yarn-v${yarn_ver}/ ~/.yarn/" && \
-            cd \
+&&  cd ~/ && \
+    curl -Ls https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import && \
+    yarn_ver=$(curl -sL https://nightly.yarnpkg.com/latest-tar-version) && \
+    aria2c -x16 -s20 -qtrue -oyarn.tar.gz https://nightly.yarnpkg.com/yarn-v${yarn_ver}.tar.gz && \
+    aria2c -x16 -s20 -qtrue -oyarn.tar.gz.asc https://nightly.yarnpkg.com/latest.tar.gz.asc && \
+    gpg --verify yarn.tar.gz.asc||! echo '[CRIICAL] GPG Verify is Not Valid' ;\
+    if [ ! $? = 0 ];then exit 1; fi && \
+    rm yarn.tar.gz.asc && \
+    tar -axvf yarn.tar.gz && \
+    mv yarn-v${yarn_ver}/ ~/.yarn/ && \
+    cd ~/ \
 # Deno
 ## Dvm
 ### Alias become `denovm`
-&&  su ww -c "cd ~/ && \
-            target="x86_64-unknown-linux-gnu" && \
-            mkdir -p ~/.denovm && cd ~/.denovm && \
-            aria2c -x16 -s20 -qtrue -odvm-${target}.zip https://cdn.jsdelivr.net/gh/justjavac/dvm_releases/dvm-${target}.zip && \
-            7z x dvm-${target}.zip && dvm-${target}.zip && \
-            mv dvm denovm" && \
-            cd \
+&&  cd ~/ && \
+    target="x86_64-unknown-linux-gnu" && \
+    mkdir -p ~/.denovm && cd ~/.denovm && \
+    aria2c -x16 -s20 -qtrue -odvm-${target}.zip https://cdn.jsdelivr.net/gh/justjavac/dvm_releases/dvm-${target}.zip && \
+    7z x dvm-${target}.zip && dvm-${target}.zip && \
+    mv dvm denovm && \
+    cd ~/ \
 # Go
 ## Goenv
-&&  su ww -c "cd ~/ && \
-            git clone https://github.com/syndbg/goenv.git ~/.goenv && \
-            git clone https://github.com/momo-lab/xxenv-latest.git ~/.goenv/plugins/xxenv-latest && \
-            export GOENV_ROOT="$HOME/.goenv" && export PATH="$GOENV_ROOT/bin:$PATH" && eval "$(goenv init -)" && export PATH="$GOROOT/bin:$PATH" && export PATH="$PATH:$GOPATH/bin" & \
-            goenv latest install && goenv latest global" && \
-            cd \
+&&  cd ~/ && \
+    git clone https://github.com/syndbg/goenv.git ~/.goenv && \
+    git clone https://github.com/momo-lab/xxenv-latest.git ~/.goenv/plugins/xxenv-latest && \
+    export GOENV_ROOT="$HOME/.goenv" && export PATH="$GOENV_ROOT/bin:$PATH" && eval "$(goenv init -)" && export PATH="$GOROOT/bin:$PATH" && export PATH="$PATH:$GOPATH/bin" & \
+    goenv latest install && goenv latest global && \
+    cd ~/ \
 # Java
 ## Jenv
-&&  su ww -c "cd ~/ && \
-            git clone https://github.com/jenv/jenv.git ~/.jenv && \
-            cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish && \
-            cp ~/.jenv/fish/export.fish ~/.config/fish/functions/export.fish" && \
-            cd \
+&&  cd ~/ && \
+    git clone https://github.com/jenv/jenv.git ~/.jenv && \
+    cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish && \
+    cp ~/.jenv/fish/export.fish ~/.config/fish/functions/export.fish && \
+    cd ~/ \
 # Php
 ## Phpenv
-&&  su ww -c "cd ~/ && \
-            git clone git://github.com/phpenv/phpenv.git ~/.phpenv && \
-            git clone https://github.com/php-build/php-build ~/.phpenv/plugins/php-build && \
-            git clone https://github.com/momo-lab/xxenv-latest.git ~/.phpenv/plugins/xxenv-latest && \
-            export PATH="$HOME/.phpenv/bin:$PATH" && eval "$(phpenv init -)" && \
-            phpenv latest install && phpenv latest global" && \
-            cd \
+&&  cd ~/ && \
+    git clone git://github.com/phpenv/phpenv.git ~/.phpenv && \
+    git clone https://github.com/php-build/php-build ~/.phpenv/plugins/php-build && \
+    git clone https://github.com/momo-lab/xxenv-latest.git ~/.phpenv/plugins/xxenv-latest && \
+    export PATH="$HOME/.phpenv/bin:$PATH" && eval "$(phpenv init -)" && \
+    phpenv latest install && phpenv latest global && \
+    cd ~/ \
 # Dart
 ## Dvm
-&&  su ww -c "cd ~/ && \
-            git clone https://github.com/cbracken/dvm.git ~/.dvm" && \
-            cd \
+&&  cd ~/ && \
+    git clone https://github.com/cbracken/dvm.git ~/.dvm && \
+    cd ~/ \
 # Rust
 ## Rustup
-&&  su ww -c "cd ~/ && \
-            curl https://sh.rustup.rs -sSf | sh -s -- -y --quiet --default-toolchain nightly --profile default" && \
-            cd \
+&&  cd ~/ && \
+    curl https://sh.rustup.rs -sSf | sh -s -- -y --quiet --default-toolchain nightly --profile default && \
+    cd ~/ \
 # Perl
 ## Plenv
-&&  su ww -c "cd ~/ && \
-            git clone https://github.com/tokuhirom/plenv.git ~/.plenv && \
-            git clone https://github.com/tokuhirom/Perl-Build.git ~/.plenv/plugins/perl-build/" && \
-            cd \
+&&  cd ~/ && \
+    git clone https://github.com/tokuhirom/plenv.git ~/.plenv && \
+    git clone https://github.com/tokuhirom/Perl-Build.git ~/.plenv/plugins/perl-build/ && \
+    cd ~/ \
 
 # Other Tools
 ## Powerline-go and Ghq
-&&  su ww -c "cd ~/ && \
-            export GOENV_ROOT="$HOME/.goenv" && export PATH="$GOENV_ROOT/bin:$PATH" && eval "$(goenv init -)" && export PATH="$GOROOT/bin:$PATH" && export PATH="$PATH:$GOPATH/bin" && \
-            go get -u github.com/justjanne/powerline-go && \
-            go get github.com/x-motemen/ghq" && \
-            cd \
+&&  cd ~/ && \
+    export GOENV_ROOT="$HOME/.goenv" && export PATH="$GOENV_ROOT/bin:$PATH" && eval "$(goenv init -)" && export PATH="$GOROOT/bin:$PATH" && export PATH="$PATH:$GOPATH/bin" && \
+    go get -u github.com/justjanne/powerline-go && \
+    go get github.com/x-motemen/ghq && \
+    cd ~/ \
 # Dot Files
-&&  su ww -c "cd ~/ && \
-            koumaza_temp_dir=$(mktemp -d) && cd $koumaza_temp_dir && \
-            git clone https://github.com/koumaza/dot --depth=1 dot && \
-            cd dot/codespace/archlinux && \
-            cp -rf $(ls -A|tr '\n' ' ') ~/ && \
-            rm -rf $koumaza_temp_dir" && \
-            cd \
+&&  cd ~/ && \
+    koumaza_temp_dir=$(mktemp -d) && cd $koumaza_temp_dir && \
+    git clone https://github.com/koumaza/dot --depth=1 dot && \
+    cd dot/codespace/archlinux && \
+    cp -rf $(ls -A|tr '\n' ' ') ~/ && \
+    rm -rf $koumaza_temp_dir && \
+    cd ~/
 
 # Fish
 SHELL ["fish","-c"]
