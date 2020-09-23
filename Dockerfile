@@ -27,12 +27,12 @@ RUN useradd ww -md /ww \
 # Pacman
 &&	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/pacman.conf|sed 's/\r//g' > /etc/pacman.conf \
 &&	pacman -Syyuu --needed --noconfirm base base-devel go git ed \
+# Yay
 &&	su ww -c "cd ~/ && \
             git clone --depth=1 --single-branch https://aur.archlinux.org/yay-git.git yay-git/ && \
             cd yay-git/ && \
             yes|makepkg -si" && \
             cd \
-# Yay
 &&	su ww -c "cd ~/ && \
             gpg --keyserver keys.gnupg.net --recv-keys 702353E0F7E48EDB && \
             yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') && \
@@ -48,19 +48,19 @@ RUN echo 'Run at User' \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
     git clone https://github.com/momo-lab/xxenv-latest.git ~/.pyenv/plugins/xxenv-latest && \
     export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && \
-    pyenv latest install && pyenv latest global" && \
+    pyenv latest install && pyenv latest global && \
     cd ~/ \
 ## Pipenv
 &&  cd ~/ && \
     pip install --user pipx && \
-    pipx install pipenv" && \
+    pipx install pipenv && \
     cd ~/ \
 # Ruby
 ## Rvm
 &&  cd ~/ && \
     curl -sSL https://get.rvm.io | bash -s -- --trace --ignore-dotfiles && \
     source $HOME/.rvm/scripts/rvm && \
-    rvm get master" && \
+    rvm get master && \
     cd ~/ \
 # Node
 ## Nodenv
@@ -71,13 +71,13 @@ RUN echo 'Run at User' \
     git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build && \
     git clone https://github.com/momo-lab/xxenv-latest.git ~/.nodenv/plugins/xxenv-latest && \
     export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
-    nodenv latest install && nodenv latest global" && \
+    nodenv latest install && nodenv latest global && \
     cd ~/ \
 ### Pnpm
-&&  su ww -c "cd ~/ && \
-            export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
-            npm install -g pnpm" && \
-            cd \
+&&  cd ~/ && \
+    export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
+    npm install -g pnpm && \
+    cd ~/ \
 ### Yarn
 &&  su ww -c "cd ~/ && \
             curl -Ls https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import && \
