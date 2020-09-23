@@ -1,5 +1,5 @@
 pkgname=docker-git
-pkgver=master-1.0.0
+pkgver='master-1.0.0'
 pkgrel=2
 epoch=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
