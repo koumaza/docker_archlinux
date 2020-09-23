@@ -40,11 +40,6 @@ RUN useradd ww -md /ww \
             yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') && \
             yes|yay -Scccc" && \
             cd \
-# Fish
-&&  su ww -c "cd ~/ && \
-            curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
-            fish -c "fisher add $(echo ${fisher_plugin}|tr ' ' ' ')" " && \
-            cd \
 # Python
 ## Pyenv
 &&  su ww -c "cd ~/ && \
@@ -161,3 +156,10 @@ RUN useradd ww -md /ww \
             cd \
 
 USER  ww
+
+# Fish
+SHELL ["fish","-c"]
+RUN  cd ~/ && \
+     curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
+     fisher add (echo $fisher_plugin|tr ' ' ' ') && \
+     cd ~/
