@@ -23,7 +23,7 @@ ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitig
 
 # User
 RUN useradd ww -md /ww \
-&&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers \
+&&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers
 # Pacman
 &&	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/pacman.conf|sed 's/\r//g' > /etc/pacman.conf \
 &&	pacman -Syyuu --needed --noconfirm base base-devel go git ed \
@@ -39,38 +39,40 @@ RUN useradd ww -md /ww \
             yes|yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') && \
             yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') && \
             yes|yay -Scccc" && \
-            cd \
+            cd
+USER  ww
+RUN echo 'Run at User' \
 # Python
 ## Pyenv
-&&  su ww -c "cd ~/ && \
-            git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
-            git clone https://github.com/momo-lab/xxenv-latest.git ~/.pyenv/plugins/xxenv-latest && \
-            export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && \
-            pyenv latest install && pyenv latest global" && \
-            cd \
+&&  cd ~/ && \
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
+    git clone https://github.com/momo-lab/xxenv-latest.git ~/.pyenv/plugins/xxenv-latest && \
+    export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && \
+    pyenv latest install && pyenv latest global" && \
+    cd ~/ \
 ## Pipenv
-&&  su ww -c "cd ~/ && \
-            pip install --user pipx && \
-            pipx install pipenv" && \
-            cd \
+&&  cd ~/ && \
+    pip install --user pipx && \
+    pipx install pipenv" && \
+    cd ~/ \
 # Ruby
 ## Rvm
-&&  su ww -c "cd ~/ && \
-            curl -sSL https://get.rvm.io | bash -s -- --trace --ignore-dotfiles && \
-            source $HOME/.rvm/scripts/rvm && \
-            rvm get master" && \
-            cd \
+&&  cd ~/ && \
+    curl -sSL https://get.rvm.io | bash -s -- --trace --ignore-dotfiles && \
+    source $HOME/.rvm/scripts/rvm && \
+    rvm get master" && \
+    cd ~/ \
 # Node
 ## Nodenv
-&&  su ww -c "cd ~/ && \
-            git clone https://github.com/nodenv/nodenv.git ~/.nodenv && \
-            cd ~/.nodenv && src/configure && make -C src && \
-            mkdir -p ~/.nodenv/plugins && \
-            git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build && \
-            git clone https://github.com/momo-lab/xxenv-latest.git ~/.nodenv/plugins/xxenv-latest && \
-            export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
-            nodenv latest install && nodenv latest global" && \
-            cd \
+&&  cd ~/ && \
+    git clone https://github.com/nodenv/nodenv.git ~/.nodenv && \
+    cd ~/.nodenv && src/configure && make -C src && \
+    mkdir -p ~/.nodenv/plugins && \
+    git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build && \
+    git clone https://github.com/momo-lab/xxenv-latest.git ~/.nodenv/plugins/xxenv-latest && \
+    export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
+    nodenv latest install && nodenv latest global" && \
+    cd ~/ \
 ### Pnpm
 &&  su ww -c "cd ~/ && \
             export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
@@ -154,8 +156,6 @@ RUN useradd ww -md /ww \
             cp -rf $(ls -A|tr '\n' ' ') ~/ && \
             rm -rf $koumaza_temp_dir" && \
             cd \
-
-USER  ww
 
 # Fish
 SHELL ["fish","-c"]
