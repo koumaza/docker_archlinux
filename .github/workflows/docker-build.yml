@@ -9,8 +9,16 @@ on:
 
 jobs:
   "Push_GitHub-Pkg":
+    container: archlinux
     runs-on: ubuntu-20.04
     steps:
+    - name: Env
+      run: |
+        pacman -Syyuu --needed --noconfirm base base-devel git docker docker-compose
+        git clone https://aur.archlinux.org/buildkit.git && cd buildkit
+        sed -i -e /exit\ \$E_ROOT/d /bin/makepkg
+        yes|makepkg -si
+        
     - uses: actions/checkout@v2
     - name: Push to GitHub Actions
       env:
@@ -32,8 +40,15 @@ jobs:
           docker push   ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_REPO:-${GITHUB_DOCKER_REPO}}/${DOCKER_NAME}:${DOCKER_TAG:-latest}
         fi
   "Push_Docker-Hub":
+    container: archlinux
     runs-on: ubuntu-20.04
     steps:
+    - name: Env
+      run: |
+        pacman -Syyuu --needed --noconfirm base base-devel git docker docker-compose
+        git clone https://aur.archlinux.org/buildkit.git && cd buildkit
+        sed -i -e /exit\ \$E_ROOT/d /bin/makepkg
+        yes|makepkg -si
     - uses: actions/checkout@v2
     - name: Push to Docker Hub
       env:
