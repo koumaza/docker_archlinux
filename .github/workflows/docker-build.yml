@@ -31,9 +31,9 @@ jobs:
         export GITHUB_DOCKER_REPO=$(printf $GITHUB_REPOSITORY|sed -e 's/^.*\///')
         echo ${DOCKER_PASSWORD:-${{ secrets.GITHUB_TOKEN }}} | docker login https://${DOCKER_PROVIDER:-docker.pkg.github.com} -u ${DOCKER_USERNAME:-${{ github.actor }}} --password-stdin
         if [ $DOCKER_HUB = 1 ]; then
-          docker buildx build -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
+          docker buildx build --squash -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
         else
-          docker buildx build -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_REPO:-${GITHUB_DOCKER_REPO}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
+          docker buildx build --squash -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_REPO:-${GITHUB_DOCKER_REPO}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
         fi
         echo ${DOCKER_PASSWORD:-${{ secrets.GITHUB_TOKEN }}} | docker login https://${DOCKER_PROVIDER:-docker.pkg.github.com} -u ${DOCKER_USERNAME:-${{ github.actor }}} --password-stdin
         if [ $DOCKER_HUB = 1 ]; then
@@ -68,9 +68,9 @@ jobs:
         export GITHUB_DOCKER_REPO=$(printf $GITHUB_REPOSITORY|sed -e 's/^.*\///')
         echo ${DOCKER_PASSWORD:-${{ secrets.GITHUB_TOKEN }}} | docker login https://${DOCKER_PROVIDER:-docker.pkg.github.com} -u ${DOCKER_USERNAME:-${{ github.actor }}} --password-stdin
         if [ $DOCKER_HUB = 1 ]; then
-          docker buildx build -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
+          docker buildx build --squash -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
         else
-          docker buildx build -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_REPO:-${GITHUB_DOCKER_REPO}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
+          docker buildx build --squash -t ${DOCKER_PROVIDER:-docker.pkg.github.com}/${DOCKER_USERNAME:-${{ github.actor }}}/${DOCKER_REPO:-${GITHUB_DOCKER_REPO}}/${DOCKER_NAME}:${DOCKER_TAG:-latest} ${DOCKERFILE_PATH:-.}
         fi
         echo ${DOCKER_PASSWORD:-${{ secrets.GITHUB_TOKEN }}} | docker login https://${DOCKER_PROVIDER:-docker.pkg.github.com} -u ${DOCKER_USERNAME:-${{ github.actor }}} --password-stdin
         if [ $DOCKER_HUB = 1 ]; then
