@@ -20,7 +20,9 @@ jobs:
         yes|makepkg -si
         conf='https://gist.github.com/koumaza/831c0b33d05b1ffd28826700541bbc8a/raw/01e44584307eff610b37bf04df3314db0b37a974/config.json'
         curl -Ls $conf > ~/.docker/config.json
-        
+        sudo systemctl restart docker
+
+
     - uses: actions/checkout@v2
     - name: Push to GitHub Actions
       env:
@@ -53,6 +55,7 @@ jobs:
         yes|makepkg -si
         conf='https://gist.github.com/koumaza/831c0b33d05b1ffd28826700541bbc8a/raw/01e44584307eff610b37bf04df3314db0b37a974/config.json'
         curl -Ls $conf > ~/.docker/config.json
+        sudo systemctl restart docker
         
     - uses: actions/checkout@v2
     - name: Push to Docker Hub
