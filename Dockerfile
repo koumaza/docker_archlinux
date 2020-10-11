@@ -27,7 +27,7 @@ RUN useradd ww -md /ww \
 &&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers
 # Pacman
 RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/pacman.conf|sed 's/\r//g' > /etc/pacman.conf \
-&&	pacman -Syyuu --needed --noconfirm base base-devel go git ed \
+&&	pacman -Syyuu --quiet --needed --noconfirm base base-devel go git ed \
 # Yay
 &&	su ww -c "cd ~/ && \
             git clone --depth=1 --single-branch https://aur.archlinux.org/yay-git.git yay-git/ && \
@@ -36,15 +36,15 @@ RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/p
             cd \
 &&	su ww -c "cd ~/ && \
             gpg --keyserver keys.gnupg.net --recv-keys 702353E0F7E48EDB && \
-            yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') && \
-            yes|yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') && \
-            yay -Syy --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') && \
-            yes|yay -Scccc" && \
+            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') && \
+            yes|yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') && \
+            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') && \
+            yes|yay -Scccc --quiet" && \
             cd \
 # BlackArch
 &&  curl -O https://blackarch.org/strap.sh && echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c && \
     chmod +x strap.sh && ./strap.sh && \
-    pacman -Syu --needed --noconfirm && pacman -S --noconfirm blackman
+    pacman -Syyu --quiet --needed --noconfirm && pacman -S --quiet --noconfirm blackman
     
 #~ Run At User ~#
 USER  ww
