@@ -83,15 +83,14 @@ RUN cd ~/ && \
     npm install -g pnpm \
 ### Yarn
 &&  cd ~/ && \
-    curl -Ls https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import && \
+    curl -LOs https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import pubkey.gpg && \
     yarn_ver=$(curl -sL https://nightly.yarnpkg.com/latest-tar-version) && \
     aria2c -x16 -s20 -qtrue -oyarn.tar.gz https://nightly.yarnpkg.com/yarn-v${yarn_ver}.tar.gz && \
     aria2c -x16 -s20 -qtrue -oyarn.tar.gz.asc https://nightly.yarnpkg.com/latest.tar.gz.asc && \
     gpg --verify yarn.tar.gz.asc||! echo '[CRIICAL] GPG Verify is Not Valid' ;\
     if [ ! $? = 0 ];then exit 1; fi && \
-    rm yarn.tar.gz.asc && \
     tar -axvf yarn.tar.gz && \
-    rm yarn.tar.gz && \
+    rm yarn.tar.gz yarn.tar.gz.asc pubkey.gpg && \
     mv yarn-v${yarn_ver}/ ~/.yarn/
 # Deno
 ## Dvm
