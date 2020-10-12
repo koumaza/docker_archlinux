@@ -58,7 +58,7 @@ RUN cd ~/ && \
     pyenv latest install && pyenv latest global \
 ## Pipenv
 &&  cd ~/ && \
-    pip install --user --dev pipx && \
+    pip install --user pipx --dev && \
     python3 -m pipx install pipeenv
 # Ruby
 ## Rvm
