@@ -91,6 +91,7 @@ RUN cd ~/ && \
     if [ ! $? = 0 ];then exit 1; fi && \
     rm yarn.tar.gz.asc && \
     tar -axvf yarn.tar.gz && \
+    rm yarn.tar.gz && \
     mv yarn-v${yarn_ver}/ ~/.yarn/
 # Deno
 ## Dvm
