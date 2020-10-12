@@ -59,7 +59,7 @@ RUN cd ~/ && \
 ## Pipenv
 &&  cd ~/ && \
     pip install --user pipx --pre && \
-    python3 -m pipx install pipeenv
+    python3 -m pipx install pipenv
 # Ruby
 ## Rvm
 RUN cd ~/ && \
