@@ -35,10 +35,11 @@ RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/p
             yes|makepkg -si" && \
             cd \
 &&	su ww -c "cd ~/ && \
+            export yay_temp_dir=$(mktemp -d)
             gpg --keyserver keys.gnupg.net --recv-keys 702353E0F7E48EDB && \
-            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') && \
-            yes|yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') && \
-            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') && \
+            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') > $yay_temp_dir/yay-1st.log 2>&1 || cat $yay_temp_dir/yay-1st.log && \
+            yes|yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') > $yay_temp_dir/yay-2nd.log 2>&1 || cat $yay_temp_dir/yay-2nd.log && \
+            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') > $yay_temp_dir/yay-3rd.log 2>&1 || cat $yay_temp_dir/yay-3rd.log && \
             yes|yay -Scccc --quiet" && \
             cd \
 # BlackArch
@@ -83,14 +84,10 @@ RUN cd ~/ && \
     npm install -g pnpm \
 ### Yarn
 &&  cd ~/ && \
-    curl -LOs https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import pubkey.gpg && \
     yarn_ver=$(curl -sL https://nightly.yarnpkg.com/latest-tar-version) && \
     aria2c -x16 -s20 -qtrue -oyarn.tar.gz https://nightly.yarnpkg.com/yarn-v${yarn_ver}.tar.gz && \
-    aria2c -x16 -s20 -qtrue -oyarn.tar.gz.asc https://nightly.yarnpkg.com/latest.tar.gz.asc && \
-    gpg --verify yarn.tar.gz.asc||! echo '[CRIICAL] GPG Verify is Not Valid' ;\
-    if [ ! $? = 0 ];then exit 1; fi && \
     tar -axvf yarn.tar.gz && \
-    rm yarn.tar.gz yarn.tar.gz.asc pubkey.gpg && \
+    rm yarn.tar.gz && \
     mv yarn-v${yarn_ver}/ ~/.yarn/
 # Deno
 ## Dvm
