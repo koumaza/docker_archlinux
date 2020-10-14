@@ -30,7 +30,7 @@ RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/p
 &&	pacman -Syyuu --quiet --needed --noconfirm base base-devel go git ed \
 # Yay
 &&	su ww -c "cd ~/ && \
-            mkdir -p ~/log
+            mkdir -p ~/log && \
             git clone --depth=1 --single-branch https://aur.archlinux.org/yay-git.git yay-git/ && \
             cd yay-git/ && \
             yes|makepkg -si" > ~/log/yay-git.makepkg.log 2>&1 && \
