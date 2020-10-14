@@ -30,16 +30,18 @@ RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/p
 &&	pacman -Syyuu --quiet --needed --noconfirm base base-devel go git ed \
 # Yay
 &&	su ww -c "cd ~/ && \
+            mkdir -p ~/log
             git clone --depth=1 --single-branch https://aur.archlinux.org/yay-git.git yay-git/ && \
             cd yay-git/ && \
-            yes|makepkg -si" && \
+            yes|makepkg -si" > ~/log/yay-git.makepkg.log 2>&1 && \
             cd \
 &&	su ww -c "cd ~/ && \
             export yay_temp_dir=$(mktemp -d) && \
-            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') > $yay_temp_dir/yay-1st.log 2>&1 || cat $yay_temp_dir/yay-1st.log && \
-            yes|yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') > $yay_temp_dir/yay-2nd.log 2>&1 || cat $yay_temp_dir/yay-2nd.log && \
-            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') > $yay_temp_dir/yay-3rd.log 2>&1 || cat $yay_temp_dir/yay-3rd.log && \
+            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_packages}|tr ' ' ' ') > ~/log/yay-1st.log 2>&1 || cat ~/log/yay-1st.log && \
+            yes|yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --mflags --skipinteg  $(echo ${aur_second_packages}|tr ' ' ' ') > ~/log/yay-2nd.log 2>&1 || cat ~/log/yay-2nd.log && \
+            yay -Syy --quiet --color=always --devel --timeupdate --nopgpfetch --needed --noconfirm --mflags --skipinteg $(echo ${aur_third_packages}|tr ' ' ' ') > ~/log/yay-3rd.log 2>&1 || cat ~/log/yay-3rd.log && \
             yes|yay -Scccc --quiet" && \
+            rm ~/log/* && \
             cd \
 # BlackArch
 &&  curl -O https://blackarch.org/strap.sh && echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c && \
