@@ -77,7 +77,7 @@ RUN cd ~/ && \
     mkdir -p ~/.nodenv/plugins && \
     git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build && \
     git clone https://github.com/momo-lab/xxenv-latest.git ~/.nodenv/plugins/xxenv-latest && \
-    export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
+    export PATH="$HOME/.nodenv/bin:$PATH" && eval "$(nodenv init -)" && \
     nodenv latest install && nodenv latest global \
 ### Pnpm
 &&  cd ~/ && \
