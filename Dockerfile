@@ -67,11 +67,11 @@ RUN cd ~/ && \
 RUN cd ~/ && \
     echo 'Ruby - Rvm' && \
     gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && \
-    curl -sSL https://get.rvm.io | bash -s -- --trace --ignore-dotfiles && \
+    curl -sSL https://get.rvm.io | bash -s -- --trace --ignore-dotfiles > rvm-get.log 2>&1 || ! cat rvm-get.log && \
+    rm rvm-get.log
     source $HOME/.rvm/scripts/rvm && \
     echo '$> rvm get master' && \
     rvm get master > rvm-get.log 2>&1 || ! cat rvm-get.log && \
-    if [ ! $? = 0 ];then exit 1; fi && \
     rm rvm-get.log
     
 # Node
@@ -90,10 +90,11 @@ RUN cd ~/ && \
     npm install -g pnpm \
 ### Yarn
 &&  cd ~/ && \
-    yarn_ver=$(curl -sL https://nightly.yarnpkg.com/latest-tar-version) && \
+    export yarn_ver=$(curl -sL https://nightly.yarnpkg.com/latest-tar-version) && \
     aria2c -x16 -s20 -qtrue -oyarn.tar.gz https://nightly.yarnpkg.com/yarn-v${yarn_ver}.tar.gz && \
-    if [ ! $? = 0 ];then exit 1; fi && \
+    echo 'aria2 passed' && \
     tar -axvf yarn.tar.gz && \
+    echo 'tar passed' && \
     rm yarn.tar.gz && \
     mv yarn-v${yarn_ver}/ ~/.yarn/
 # Deno
@@ -159,3 +160,5 @@ RUN  cd ~/ && \
      curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
      fisher add (echo $fisher_plugin|tr ' ' ' ') && \
      cd ~/
+     
+ENTRYPOINT ["fish"]
