@@ -86,7 +86,6 @@ RUN cd ~/ && \
     nodenv latest install && nodenv latest global \
 ### Pnpm
 &&  cd ~/ && \
-    export PATH="$HOME/.nodenv/bin:$PATH" && ~/.nodenv/bin/nodenv init && \
     npm install -g pnpm \
 ### Yarn
 &&  cd ~/ && \
