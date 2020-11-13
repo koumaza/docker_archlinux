@@ -44,7 +44,7 @@ RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/p
             rm ~/log/*" && \
             cd \
 # BlackArch
-&&  curl -O https://blackarch.org/strap.sh && echo 9c15f5d3d6f3f8ad63a6927ba78ed54f1a52176b strap.sh | sha1sum -c && \
+&&  curl -O https://blackarch.org/strap.sh && \
     chmod +x strap.sh && ./strap.sh && \
     pacman -Syyu --quiet --needed --noconfirm && pacman -S --quiet --noconfirm blackman
     
