@@ -27,7 +27,7 @@ RUN useradd ww -md /ww \
 &&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers
 # Pacman
 RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/pacman.conf|sed 's/\r//g' > /etc/pacman.conf \
-&&	pacman -Syyuu --quiet --needed --noconfirm base base-devel go git ed \
+&&	pacman -Syyuu --quiet --needed --noconfirm base base-devel go git ed gperf \
 # Yay
 &&	su ww -c "cd ~/ && \
             mkdir -p ~/log && \
