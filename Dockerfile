@@ -24,7 +24,10 @@ ENV fisher_plugin='jethrokuan/fzf edc/bass jethrokuan/z 0rax/fish-bd sijad/gitig
 
 # User
 RUN useradd ww -md /ww \
-&&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers
+&&  echo 'ww ALL=NOPASSWD:ALL'>>/etc/sudoers \
+## Make Root User's Dir
+&&  mkdir -p ~/.config/fish/functions || true
+
 # Pacman
 RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/pacman.conf|sed 's/\r//g' > /etc/pacman.conf \
 &&	pacman -Syyuu --quiet --needed --noconfirm base base-devel go git ed gperf \
@@ -50,6 +53,8 @@ RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/p
     
 #~ Run At User ~#
 USER  ww
+## Make Root User's Dir
+RUN mkdir -p ~/.config/fish/functions || true
 
 # Python
 ## Pyenv
@@ -115,9 +120,7 @@ RUN cd ~/ && \
 # Java
 ## Jenv
 RUN cd ~/ && \
-    git clone https://github.com/jenv/jenv.git ~/.jenv && \
-    ln -s ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish && \
-    ln -s ~/.jenv/fish/export.fish ~/.config/fish/functions/export.fish
+    git clone https://github.com/jenv/jenv.git ~/.jenv
 # Php
 ## Phpenv
 RUN cd ~/ && \
@@ -158,6 +161,8 @@ SHELL ["fish","-c"]
 RUN  cd ~/ && \
      curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish && \
      fisher add (echo $fisher_plugin|tr ' ' ' ') && \
+     ln -s ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish && \
+     ln -s ~/.jenv/fish/export.fish ~/.config/fish/functions/export.fish && \
      cd ~/
      
 ENTRYPOINT ["fish"]
