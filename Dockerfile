@@ -53,7 +53,7 @@ RUN	curl -Ls https://raw.githubusercontent.com/koumaza/docker_archlinux/master/p
     
 #~ Run At User ~#
 USER  ww
-## Make Root User's Dir
+## Make ww's User Dir
 RUN mkdir -p ~/.config/fish/functions || true
 
 # Python
