@@ -5,7 +5,7 @@ SHELL ["bash","-c"]
 RUN   echo -e 'Build date: '$(date) > /etc/image_version
 
 ENV aur_packages='base base-devel yay-git pkgfile \
-    bash bash-completion-git zsh-git fish-git tmux-git neofetch-git tmate \
+    bash bash-completion-git zsh-git fish-git oniguruma tmux-git neofetch-git tmate \
     w3m vim-git neovim-git vim-edge-git neovim-edge-git less procps-ng p7zip p7zip-zstd-codec zstd zip unzip aria2-fast wget \
     ninja-git cmake-git pod2man \
     openssl autogen podman podman-compose-git podman-docker jdk-adoptopenjdk \
