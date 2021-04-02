@@ -1,4 +1,4 @@
-# For Github Codespace
+# ~~For Github Codespace~~
 ## Details
 ```yaml
 username: ww
